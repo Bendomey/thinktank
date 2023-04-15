@@ -9,8 +9,8 @@
     "build": "tsc",
     "dev": "cross-env DEBUG=thinktank:* nodemon dist/index.js",
     "dev2": "cross-env QUEUE_ID=1 DEBUG=thinktank:* nodemon dist/index.js",
-    "dev:ts": "cross-env DEBUG=thinktank:*  ts-node src",
-    "dev2:ts": "cross-env QUEUE_ID=1  DEBUG=thinktank:*  ts-node src"
+    "dev:ts": "cross-env DEBUG=thinktank:*  nodemon --exec ts-node src",
+    "dev2:ts": "cross-env QUEUE_ID=1  DEBUG=thinktank:*  nodemon --exec ts-node src"
   },
   "repository": {
     "type": "git",
