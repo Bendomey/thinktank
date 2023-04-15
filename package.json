@@ -5,12 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "watch": "tsc -w",
-    "start": "node",
+    "start": "node .",
     "build": "tsc",
     "dev": "cross-env DEBUG=thinktank:* nodemon dist/index.js",
     "dev2": "cross-env QUEUE_ID=1 DEBUG=thinktank:* nodemon dist/index.js",
     "dev:ts": "cross-env DEBUG=thinktank:*  nodemon --exec ts-node src",
-    "dev2:ts": "cross-env QUEUE_ID=1  DEBUG=thinktank:*  nodemon --exec ts-node src"
+    "dev2:ts": "cross-env QUEUE_ID=1  DEBUG=thinktank:*  nodemon --exec ts-node src",
+    "types:check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
