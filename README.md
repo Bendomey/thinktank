@@ -1,1 +1,1 @@
-<p align='center'>ThinkTank</p>
+<h1 align='center'>ThinkTank</h1>
