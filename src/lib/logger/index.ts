@@ -1,7 +1,10 @@
 import debug from 'debug';
-import { ConfigType } from '../../../config';
+import { ICradle } from '../dependency';
+
+export type ICreateLogger = (logName: string) => debug.Debugger
 
 export const createLogger =
-  ({ config }: { config: ConfigType }) =>
+  ({ config }: ICradle) =>
   (logName: string) =>
     debug(`${config.applicationName}:${logName}`);
+

@@ -1,14 +1,27 @@
 import { asValue, asFunction, createContainer } from 'awilix';
 
 // Env vars
-import { CONFIG } from '../../../config';
+import { CONFIG, ConfigType } from '../../../config';
 
 // Adapters
-import { createLogger } from '../../lib/logger';
+import { ICreateLogger, createLogger } from '../../lib/logger';
+import {
+  IStartMediasoupWorkers,
+  startMediasoupWorkers,
+} from '../mediasoupWorkers';
 
-const container = createContainer();
-container.register('config', asValue(CONFIG));
+export interface ICradle {
+  config: ConfigType;
+  createLogger: ICreateLogger;
+  createMediasoupWorkers: IStartMediasoupWorkers;
+}
 
-container.register('createLogger', asFunction(createLogger).scoped());
+const container = createContainer<ICradle>();
+
+container.register({
+  config: asValue(CONFIG),
+  createLogger: asFunction(createLogger).scoped(),
+  createMediasoupWorkers: asFunction(startMediasoupWorkers).scoped(),
+});
 
 export default () => container;

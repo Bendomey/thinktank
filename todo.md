@@ -1,0 +1,3 @@
+- [ ] MediaSoup Workers Config.
+- [ ] Express Server Setup.
+- [ ] Setup Queue to Manage Rooms.
