@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { name as applicationName } from '../package.json';
 import os from 'os';
-import { defaultTo } from 'ramda';
+import { defaultTo, length } from 'ramda';
 
 dotenv.config({});
 
@@ -31,7 +31,7 @@ export const CONFIG = {
 
   mediasoup: {
     // Number of mediasoup workers to launch.
-    numWorkers: Object.keys(os.cpus()).length,
+    numWorkers: length(Object.keys(os.cpus())),
     // mediasoup WorkerSettings.
     // See https://mediasoup.org/documentation/v3/mediasoup/api/#WorkerSettings
     workerSettings: {

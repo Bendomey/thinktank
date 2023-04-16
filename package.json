@@ -2,7 +2,7 @@
   "name": "thinktank",
   "version": "1.0.0",
   "description": "Audio/VideoServer",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "watch": "tsc -w",
     "start": "node .",
