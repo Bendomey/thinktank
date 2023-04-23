@@ -5,13 +5,19 @@ import express from 'express';
 export type ICreateErrorHandler = (
   err: Error,
   req: express.Request,
-  res: express.Response
+  res: express.Response,
+  next: express.NextFunction
 ) => express.Response<any, Record<string, any>>;
 
 export const createErrorHandler =
   ({ errors }: ICradle) =>
-  (err: Error, _: express.Request, res: express.Response) => {
-    const message = prop<string>('message', err)
+  (
+    err: Error,
+    _: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const message = prop<string>('message', err);
     if (err instanceof errors.BaseError) {
       return res.status(err.getCode()).json({
         success: false,

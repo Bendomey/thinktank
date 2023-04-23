@@ -5,14 +5,15 @@ import { ICradle } from '../dependency';
 export type IStartExpressApp = () => Promise<express.Express>;
 
 export const startExpressApp =
-  ({ expressErrorHandler }: ICradle) =>
+  ({ expressErrorHandler, api }: ICradle) =>
   async () => {
     const app = express();
+    const { api: API } = api();
 
     // Registering middlewares
     app.use(cors());
     app.use(express.json());
-    // app.use(endpoints.api);
+    app.use(API);
     app.use(expressErrorHandler);
 
     return app;

@@ -16,6 +16,12 @@ import {
 } from '../../lib/middlewares/errorHandler';
 import { createErrors, ICreateErrors } from '../../utils/errors';
 
+// Routes
+import createApi, { IApiType } from '../api';
+
+// Services
+import { pingService, IPingService } from '../../services';
+
 export interface ICradle {
   config: ConfigType;
   createLogger: ICreateLogger;
@@ -23,6 +29,8 @@ export interface ICradle {
   createExpressApp: IStartExpressApp;
   errors: ICreateErrors;
   expressErrorHandler: ICreateErrorHandler;
+  api: IApiType;
+  pingService: IPingService;
 }
 
 const container = createContainer<ICradle>();
@@ -34,6 +42,8 @@ container.register({
   createExpressApp: asFunction(startExpressApp).scoped(),
   errors: asFunction(createErrors).scoped(),
   expressErrorHandler: asFunction(createErrorHandler).scoped(),
+  api: asFunction(createApi).scoped(),
+  pingService: asFunction(pingService).scoped(),
 });
 
 export default () => container;
