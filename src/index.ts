@@ -7,6 +7,7 @@ const config = container.cradle.config;
 const createLogger = container.cradle.createLogger;
 const createMediasoupWorkers = container.cradle.createMediasoupWorkers;
 const createExpressApp = container.cradle.createExpressApp;
+const runHttpsServer = container.cradle.runHttpsServer;
 const createApi = container.cradle.api;
 
 const startServer = async (config: ConfigType) => {
@@ -16,7 +17,7 @@ const startServer = async (config: ConfigType) => {
 
   const server = await createExpressApp();
 
-  server.listen(config.port, () => {
+  server.listen(config.port, async () => {
     log(`Starting thinktank server on ${config.port}...`);
     const { endpointInformation } = createApi();
 
@@ -30,6 +31,8 @@ const startServer = async (config: ConfigType) => {
         endpoint.method
       );
     }
+
+    await runHttpsServer(server);
   });
 };
 

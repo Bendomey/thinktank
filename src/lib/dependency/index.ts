@@ -15,6 +15,7 @@ import {
   createErrorHandler,
 } from '../../lib/middlewares/errorHandler';
 import { createErrors, ICreateErrors } from '../../utils/errors';
+import { IHttpsServer, runHttpsServer } from '../httpsServer';
 
 // Routes
 import createApi, { IApiType } from '../api';
@@ -27,6 +28,7 @@ export interface ICradle {
   createLogger: ICreateLogger;
   createMediasoupWorkers: IStartMediasoupWorkers;
   createExpressApp: IStartExpressApp;
+  runHttpsServer: IHttpsServer;
   errors: ICreateErrors;
   expressErrorHandler: ICreateErrorHandler;
   api: IApiType;
@@ -40,6 +42,7 @@ container.register({
   createLogger: asFunction(createLogger).scoped(),
   createMediasoupWorkers: asFunction(startMediasoupWorkers).scoped(),
   createExpressApp: asFunction(startExpressApp).scoped(),
+  runHttpsServer: asFunction(runHttpsServer).scoped(),
   errors: asFunction(createErrors).scoped(),
   expressErrorHandler: asFunction(createErrorHandler).scoped(),
   api: asFunction(createApi).scoped(),

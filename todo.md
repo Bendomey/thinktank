@@ -1,5 +1,5 @@
 - [x] MediaSoup Workers Config.
 - [x] Express Server Setup.
-- [ ] Configure API
-- [ ] HTTPS setup
+- [x] Configure API
+- [x] HTTPS setup
 - [ ] Setup Queue to Manage Rooms.
