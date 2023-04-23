@@ -38,7 +38,7 @@ const createHandleRequestResponse =
         });
         const successCode = getSuccessCode(method);
 
-        log(JSON.stringify({ url: req.url, res: output, status: successCode }));
+        log({ url: req.url, res: output, status: successCode });
         return res.status(successCode).json({ success: true, payload: output });
       } catch (e) {
         next(e);
