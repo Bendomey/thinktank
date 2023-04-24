@@ -2,4 +2,7 @@
 - [x] Express Server Setup.
 - [x] Configure API
 - [x] HTTPS setup
+- [ ] Churn out Services
 - [ ] Setup Queue to Manage Rooms.
+- [ ] Migrate Express Server/APIs to Example App
+- [ ] Migrate HTTPS

@@ -1,16 +1,15 @@
 import { add, defaultTo, prop, subtract } from 'ramda';
 import { ICradle } from '../dependency';
 import * as mediasoup from 'mediasoup';
+import { IThinktankWorker } from 'types';
 
-export type IStartMediasoupWorkers = () => Promise<
-  Array<mediasoup.types.Worker>
->;
+export type IStartMediasoupWorkers = () => Promise<Array<IThinktankWorker>>;
 
 export const startMediasoupWorkers =
   ({ config, createLogger }: ICradle) =>
   async () => {
     const logger = createLogger('startMediasoupWorkers');
-    const workers: Array<mediasoup.types.Worker> = [];
+    const workers: Array<IThinktankWorker> = [];
 
     for (let i = 0; i < config.mediasoup.numWorkers; i++) {
       const worker = await mediasoup.createWorker({
@@ -29,13 +28,19 @@ export const startMediasoupWorkers =
         setTimeout(() => process.exit(1), 2000);
       });
 
-      workers.push(worker);
+      const mediaCodecs = config.mediasoup.workerSettings.routerOptions
+        .mediaCodecs as Array<mediasoup.types.RtpCodecCapability>;
+
+      const router = await worker.createRouter({ mediaCodecs });
+      router.on('workerclose', () => logger('worker closed so router closed'));
+
+      workers.push({
+        worker,
+        router,
+      });
 
       // Create a WebRtcServer in this Worker.
-
-      if (
-        process.env.MEDIASOUP_USE_WEBRTC_SERVER !== "false"
-      ) {
+      if (process.env.MEDIASOUP_USE_WEBRTC_SERVER !== 'false') {
         // Each mediasoup Worker will run its own WebRtcServer, so those cannot
         // share the same listening ports. Hence we increase the value in config.js
         // for each Worker.

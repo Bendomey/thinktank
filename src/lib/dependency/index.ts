@@ -21,7 +21,8 @@ import { IHttpsServer, runHttpsServer } from '../httpsServer';
 import createApi, { IApiType } from '../api';
 
 // Services
-import { pingService, IPingService } from '../../services';
+import { services, IServices } from '../../services';
+import { IUtilities, utilities } from '../../utils';
 
 export interface ICradle {
   config: ConfigType;
@@ -30,9 +31,10 @@ export interface ICradle {
   createExpressApp: IStartExpressApp;
   runHttpsServer: IHttpsServer;
   errors: ICreateErrors;
+  utilities: IUtilities;
   expressErrorHandler: ICreateErrorHandler;
   api: IApiType;
-  pingService: IPingService;
+  services: IServices;
 }
 
 const container = createContainer<ICradle>();
@@ -44,9 +46,10 @@ container.register({
   createExpressApp: asFunction(startExpressApp).scoped(),
   runHttpsServer: asFunction(runHttpsServer).scoped(),
   errors: asFunction(createErrors).scoped(),
+  utilities: asFunction(utilities).scoped(),
   expressErrorHandler: asFunction(createErrorHandler).scoped(),
   api: asFunction(createApi).scoped(),
-  pingService: asFunction(pingService).scoped(),
+  services: asFunction(services).scoped(),
 });
 
 export default () => container;
